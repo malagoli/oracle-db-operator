@@ -20,7 +20,7 @@ A full architecture could be the one presented in this diagram:
 
 # Requirements
 
-##Oracle Connection Manager
+## Oracle Connection Manager
 
 Even if this is optional, when integrated can simplify the connection management and manage directly
  the advanced failover capabilities.
@@ -32,7 +32,7 @@ https://github.com/oracle/docker-images/tree/master/OracleDatabase/RAC/OracleCon
 Once builded and uploaded to your private docker registry you can deploy CMAN on kubernetes
 via a deployment script similar to the one in examples/ords-deployment.yaml
 
-##Oracle Database
+## Oracle Database
 You can install any Oracle Enterprise edition that support multitenant even if version greater than 19.3 is suggested.
 For semplicity you can also install database inside the kubernetes cluster following the docker creation script here:
 https://github.com/oracle/docker-images/tree/master/OracleDatabase
@@ -49,7 +49,7 @@ kubectl apply -f examples/database/oracle-db-deployment.yaml
  
 
 
-##Oracle Rest Data Services
+## Oracle Rest Data Services
 
 ORDS is used to interface via REST for the management of the lifecycle of the database, you can 
 build the ORDS v19.2 container following the steps here:
