@@ -1,0 +1,64 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<parent>
+    <groupId>io.radanalytics</groupId>
+    <artifactId>operator-parent-pom</artifactId>
+    <version>0.3.11</version>
+</parent>
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.oracle</groupId>
+<artifactId>db-operator</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <abstract-operator.version>0.5.2</abstract-operator.version>
+    <resteasy.version>3.0.14.Final</resteasy.version>
+</properties>
+
+<dependencies>
+    <dependency>
+        <groupId>io.radanalytics</groupId>
+        <artifactId>abstract-operator</artifactId>
+        <version>${abstract-operator.version}</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+    <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.9</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.9.9</version>
+    </dependency>
+
+
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+</project>

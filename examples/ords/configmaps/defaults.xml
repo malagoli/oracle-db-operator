@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Saved on Mon Aug 26 11:24:32 GMT 2019</comment>
+<entry key="database.api.admin.enabled">true</entry>
+<entry key="database.api.enabled">true</entry>
+<entry key="db.cdb.adminUser">C##DBAPI_CDB_ADMIN as SYSDBA</entry>
+<entry key="db.cdb.adminUser.password">!##ORDS_PASSWORD##</entry>
+<entry key="db.hostname">oracle-db-enterprise</entry>
+<entry key="db.port">1521</entry>
+<entry key="db.servicename">##DATABASE_CDB_SERVICE_NAME##</entry>
+<entry key="jdbc.DriverType">thin</entry>
+<entry key="jdbc.InactivityTimeout">1800</entry>
+<entry key="jdbc.InitialLimit">3</entry>
+<entry key="jdbc.MaxConnectionReuseCount">1000</entry>
+<entry key="jdbc.MaxLimit">10</entry>
+<entry key="jdbc.MaxStatementsLimit">10</entry>
+<entry key="jdbc.MinLimit">1</entry>
+<entry key="jdbc.auth.enabled">true</entry>
+<entry key="jdbc.statementTimeout">900</entry>
+<entry key="log.logging">false</entry>
+<entry key="log.maxEntries">50</entry>
+<entry key="debug.debugger">true</entry>
+<entry key="debug.printDebugToScreen">true</entry>
+<entry key="misc.compress"/>
+<entry key="misc.defaultPage">apex</entry>
+<entry key="security.disableDefaultExclusionList">false</entry>
+<entry key="security.maxEntries">2000</entry>
+<entry key="security.validationFunctionType">plsql</entry>
+</properties>

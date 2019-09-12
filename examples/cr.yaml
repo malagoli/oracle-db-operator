@@ -1,0 +1,8 @@
+apiVersion: com.oracle/v1
+kind: OracleService
+metadata:
+  name: my-db
+spec:
+  storage: 1000000000
+  tempStorage: 10000000
+

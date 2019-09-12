@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Oracle multitenant service management",
+  "type": "object",
+  "extends": {
+    "type": "object",
+    "existingJavaType": "io.radanalytics.operator.common.EntityInfo"
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "storage": {
+      "type": "integer",
+      "default": "1"
+    },
+    "tempStorage": {
+      "type": "integer",
+      "default": "1"
+    }
+
+
+  },
+  "required": [ ]
+}

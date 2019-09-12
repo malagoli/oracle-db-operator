@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: oracleclaim-ords-config
+spec:
+  storageClassName: ##CONFIGURE_STORAGE_CLASS##
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

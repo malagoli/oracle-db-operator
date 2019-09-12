@@ -1,0 +1,45 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: oracle-db-connection-manager
+spec:
+  replicas: 1
+  minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: oracle-db-connection-manager
+  template:
+    metadata:
+      labels:
+        app: oracle-db-connection-manager
+    spec:
+      containers:
+        - name: oracle-db-connection-manager
+          image: DOCKER_REPO/cman:19.3.0.0
+          ports:
+            - containerPort: 1521
+          livenessProbe:
+            tcpSocket:
+              port: 1521
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          env:
+            - name: DOMAIN
+              value: "default.svc.cluster.local"
+      imagePullSecrets:
+        - name: DOCKER_SECRET
+
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracle-db-connection-manager-service
+spec:
+  ports:
+    - port: 1521
+      targetPort: 1521
+      protocol: TCP
+  selector:
+    app: oracle-db-connection-manager

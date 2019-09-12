@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Saved on Fri Aug 23 11:24:16 GMT 2019</comment>
+<entry key="db.password">!##ORDS_PASSWORD##</entry>
+<entry key="db.username">ORDS_PUBLIC_USER</entry>
+
+</properties>
+
+
+

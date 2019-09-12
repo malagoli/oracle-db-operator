@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>Saved on Mon Aug 26 11:22:54 GMT 2019</comment>
+<entry key="db.cdb.adminUser">C##DBAPI_CDB_ADMIN as SYSDBA</entry>
+<entry key="db.cdb.adminUser.password">!##ORDS_PASSWORD##</entry>
+<entry key="db.password">!##ORDS_PASSWORD##</entry>
+<entry key="db.username">ORDS_PUBLIC_USER</entry>
+</properties>
+
+

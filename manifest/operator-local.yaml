@@ -1,0 +1,61 @@
+# for creating these resources it requires the user to be logged in as system admin
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: oracle-db-operator
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: oracle-db-operator-edit-resources
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: ""
+subjects:
+  - kind: ServiceAccount
+    name: oracle-db-operator
+    namespace: default
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracle-db-operator
+  labels: &default-labels
+    app.kubernetes.io/name: oracle-db-operator
+    app.kubernetes.io/version: v0.0.1-v1alpha1
+spec:
+  replicas: 1
+  selector:
+    matchLabels: *default-labels
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels: *default-labels
+    spec:
+      serviceAccountName: oracle-db-operator
+      containers:
+      - name: oracle-db-operator
+        image: com-oracle/db-operator:latest
+        env:
+          - name: CRD
+            value: "true"
+          - name: ORDS_HOST
+            value: "oracle-db-ords"
+          - name: ORDS_BASEPATH
+            value: "/ords"
+          - name: ORDS_PORT
+            value: "8080"
+          - name: ORDS_PROTOCOL
+            value: "http"
+          - name: ORDS_CREDENTIAL_SECRET_NAME
+            value: "oracle-ords-credentials"
+          - name: OCM_SERVICE_NAME
+            value: "oracle-db-connection-manager-service"
+          - name: OCM_SERVICE_PORT
+            value: "1521"
+          - name: DB_FILENAME_CONVERSION_PATTERN
+            value: "('/opt/oracle/oradata/ORCLCDB/pdbseed/','/opt/oracle/oradata/ORCLCDB/##PDBNAME##/')"
+        imagePullPolicy: IfNotPresent
+

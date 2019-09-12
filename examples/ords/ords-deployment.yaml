@@ -1,0 +1,72 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: oracle-db-ords
+spec:
+  replicas: 1
+  minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: oracle-db-ords
+  template:
+    metadata:
+      labels:
+        app: oracle-db-ords
+    spec:
+      containers:
+        - name: oracle-db-ords
+          image: ##DOCKER_REGISTRY##/restdataservices:19.2.0.2
+          ports:
+            - containerPort: 8888
+          livenessProbe:
+            tcpSocket:
+              port: 8888
+            initialDelaySeconds: 60
+            periodSeconds: 30
+          env:
+            - name: ORACLE_HOST
+              value: oracle-db
+            - name: ORACLE_SERVICE
+              value: ORCLCDB
+            - name: ORACLE_PWD
+              value: ##DB_PASSWORD##
+            - name: ORDS_PWD
+              value: ##ORDS_PASSWORD##
+            - name: ORACLE_BASE
+              value: /opt/oracle/
+          volumeMounts:
+            - name: oracle-db-ords-config-persistent
+              mountPath: "/opt/oracle/ords/config/ords"
+
+      initContainers:
+        - name: setup-configs
+          command: ["sh", "-c", "cp /conf/apex_pu.xml /apex_pu.xml && mkdir -p /opt/oracle/ords/config/ords/conf/ && cp /conf/apex_pu.xml /opt/oracle/ords/config/ords/conf/apex_pu.xml && cp /conf/apex.xml /opt/oracle/ords/config/ords/conf/apex.xml && cp /conf/credentials /opt/oracle/ords/config/ords/credentials && cp /conf/defaults.xml /opt/oracle/ords/config/ords/defaults.xml && chown -R 54321:54321 /opt/oracle/ords/config/ords"]
+          image: busybox
+          volumeMounts:
+            - name: oracle-db-ords-config
+              mountPath: "/conf"
+            - name: oracle-db-ords-config-persistent
+              mountPath: "/opt/oracle/ords/config/ords"
+      imagePullSecrets:
+        - name: ##DOCKER_SECRET##
+
+      volumes:
+        - name: oracle-db-ords-config
+          configMap:
+            name: oracle-db-ords-config
+        - name: oracle-db-ords-config-persistent
+          persistentVolumeClaim:
+            claimName: oracleclaim-ords-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracle-db-ords
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8888
+      protocol: TCP
+  selector:
+    app: oracle-db-ords

@@ -1,0 +1,56 @@
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: oracle-db-enterprise
+spec:
+  replicas: 1
+  minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: oracle-db-enterprise
+  template:
+    metadata:
+      labels:
+        app: oracle-db-enterprise
+    spec:
+      hostname: oracle-db-enterprise
+      containers:      
+      - name: oracle-db-enterprise
+        image: ##DOCKER_REGISTRY##/oracle-db:19.3.0.0
+        env:
+        - name: ORACLE_SID
+          value: "ORCLCDB"
+        - name: ORACLE_PDB
+          value: "ORCLPDB1"
+        - name: ORACLE_PWD
+          value: "##ORACLE_SYS_PASSWORD##"
+        volumeMounts:
+        - name: oracle-db-config
+          mountPath: /opt/oracle/scripts/setup
+        ports:
+        - containerPort: 1521
+        livenessProbe:
+          tcpSocket:
+            port: 1521
+          initialDelaySeconds: 300
+          periodSeconds: 30
+      imagePullSecrets:
+        - name: ##DOCKER_SECRET##
+      volumes:
+        - name: oracle-db-config
+          configMap:
+            name: oracle-db-config
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracle-db-enterprise-1
+spec:
+  ports:
+  - port: 1521
+    targetPort: 1521
+    protocol: TCP
+  selector:
+    app: oracle-db-enterprise-1
